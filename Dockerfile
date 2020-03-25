@@ -374,6 +374,14 @@ RUN wget https://salsa.debian.org/science-team/med-fichier/-/archive/debian/4.0.
     make -j $(nproc --ignore=2) && make -j $(nproc --ignore=2) install && \
     rm -rfv /tmp/*
 
+# OpenCamLib v29/12/2019(Commit:983a4168fb0a8e84154c45c6f0a286dc2e752b9a)
+RUN git clone -n https://github.com/aewallin/opencamlib.git && \
+    mkdir /tmp/opencamlib/build && cd /tmp/opencamlib/build && \
+    git checkout 983a4168fb0a8e84154c45c6f0a286dc2e752b9a && \
+    cmake -D BUILD_PY_LIB=ON -D BUILD_CXX_LIB=OFF -D USE_PY_3=ON ../src && \
+    make -j $(nproc --ignore=2) && \
+    make -j $(nproc --ignore=2) install
+
 # Add the build script
 ADD add_files/freecad_build_script.sh /root/build_script.sh
 
